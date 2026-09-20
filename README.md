@@ -1,38 +1,40 @@
-# Durable Chat App
+# shat.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/shantry-chat-app-from-cloudflare)
+a little space for a good conversation, built on cloudflare workers, durable objects, and partyserver.
 
-![Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/da00d330-9a3b-40a2-e6df-b08813fb7200/public)
+- named public rooms appear on the home screen; the directory refreshes every 10 seconds.
+- private rooms are unlisted and use randomly generated invite ids. anyone with the link or id can join and read the history; they are not password-protected.
+- display names and light/dark preferences are saved in the current browser. names are display labels, not verified accounts.
+- conversations persist in each room’s sqlite durable object. the latest 200 messages load when joining.
+- lowercase branding, responsive layouts, room search, and copyable invites.
 
-<!-- dash-content-start -->
+## develop
 
-With this template, you can deploy your own chat app to converse with other users in real-time. Going to the [demo website](https://shantry-chat-app-from-cloudflare.templates.workers.dev) puts you into a unique chat room based on the ID in the url. Share that ID with others to chat with them! This is powered by [Durable Objects](https://developers.cloudflare.com/durable-objects/) and [PartyKit](https://www.partykit.io/).
-
-## How It Works
-
-Users are assigned their own chat room when they first visit the page, and can talk to others by sharing their room URL. When someone joins the chat room, a WebSocket connection is opened with a [Durable Object](https://developers.cloudflare.com/durable-objects/) that stores and synchronizes the chat history.
-
-The Durable Object instance that manages the chat room runs in one location, and handles all incoming WebSocket connections. Chat messages are stored and retrieved using the [Durable Object SQL Storage API](https://developers.cloudflare.com/durable-objects/api/sql-storage/). When a new user joins the room, the existing chat history is retrieved from the Durable Object for that room. When a user sends a chat message, the message is stored in the Durable Object for that room and broadcast to all other users in that room via WebSocket connection. This template uses the [PartyKit Server API](https://docs.partykit.io/reference/partyserver-api/) to simplify the connection management logic, but could also be implemented using Durable Objects on their own.
-
-<!-- dash-content-end -->
-
-## Getting Started
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```
-npm create cloudflare@latest -- --template=cloudflare/templates/shantry-chat-app-from-cloudflare
+```sh
+npm ci
+npm run dev
 ```
 
-A live public deployment of this template is available at [https://shantry-chat-app-from-cloudflare.templates.workers.dev](https://shantry-chat-app-from-cloudflare.templates.workers.dev)
+## verify
 
-## Setup Steps
+```sh
+npm run check
+```
 
-1. Install the project dependencies with a package manager of your choice:
-   ```bash
-   npm install
-   ```
-2. Deploy the project!
-   ```bash
-   npx wrangler deploy
-   ```
+this checks both typescript projects and performs a cloudflare deployment dry run. with the local server running on port 8787, run the integration checks:
+
+```sh
+npm run test:smoke
+```
+
+these create local test rooms and check directory privacy, invite lookup, invalid requests, two-client messaging, safe quote handling, duplicate message protection, history, and room isolation. set `TEST_URL` only to another test environment if needed.
+
+## deploy to cloudflare
+
+```sh
+npm run deploy
+```
+
+the existing worker name and `Chat` binding are retained. the additive `v2` migration creates the `RoomDirectory` durable object; the existing `v1` chat migration remains intact. wrangler still builds the react bundle and deploys static assets alongside the worker. no separate hosting service or database is required.
+
+rooms created with this version have `/room/:id` links and directory metadata. old `/:id` links redirect to that route, but rooms from the original template without directory metadata are not registered automatically. their stored message data is retained.

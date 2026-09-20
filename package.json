@@ -1,8 +1,8 @@
 {
   "name": "shantry-chat-app-from-cloudflare",
-  "description": "Chat with other users in real-time using Durable Objects and PartyKit.",
+  "description": "shat. — public rooms, private conversations, and good company on cloudflare.",
   "cloudflare": {
-    "label": "Durable Chat App",
+    "label": "shat.",
     "products": [
       "Workers",
       "Durable Objects"
@@ -27,12 +27,14 @@
     "@types/react-dom": "18.3.1",
     "esbuild": "0.25.2",
     "typescript": "5.8.2",
-    "wrangler": "4.7.0"
+    "wrangler": "4.7.0",
+    "ws": "^8.18.0"
   },
   "scripts": {
     "check": "tsc --project src/client && tsc --project src/server && wrangler deploy --dry-run",
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "types": "wrangler types ./src/server/worker-configuration.d.ts"
+    "types": "wrangler types ./src/server/worker-configuration.d.ts",
+    "test:smoke": "node tests/smoke.mjs"
   }
 }
