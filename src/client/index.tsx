@@ -146,7 +146,6 @@ function App() {
         </Routes>
       </main>
       <footer>
-        <span>a little space for a good conversation.</span>
         <span>shat. — just say something.</span>
       </footer>
     </div>
@@ -201,9 +200,9 @@ function Home() {
           <span className="dot" /> less scrolling. more talking.
         </div>
         <h1>
-          good company.
+          take a shit in the
           <br />
-          <span>one room away.</span>
+          <span>shat. | just say something</span>
         </h1>
         <p>
           find your people, start a conversation, or make a little
@@ -211,9 +210,9 @@ function Home() {
         </p>
         <div className="hero-doodle" aria-hidden="true">
           <div className="bubble bubble-one">
-            hello<span>✳</span>
+            i shit in the shat.<span>✳</span>
           </div>
-          <div className="bubble bubble-two">hey there.</div>
+          <div className="bubble bubble-two">yo me too</div>
           <span className="spark">✳</span>
         </div>
       </section>
@@ -221,7 +220,7 @@ function Home() {
         <section className="directory">
           <div className="section-title">
             <h2>
-              the living rooms <span className="count">{rooms.length}</span>
+              the bathrooms <span className="count">{rooms.length}</span>
             </h2>
             <span className="live">
               <span className="dot" /> open to everyone
@@ -242,7 +241,7 @@ function Home() {
             </p>
           )}
           {loading ? (
-            <div className="empty">pulling up a chair...</div>
+            <div className="empty">pulling up a toilet...</div>
           ) : filtered.length ? (
             <div className="room-list">
               {filtered.map((room, i) => (
