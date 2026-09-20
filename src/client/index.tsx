@@ -202,7 +202,7 @@ function Home() {
         <h1>
           take a shit in the
           <br />
-          <span>shat. | just say something</span>
+          <span><strong>shat.</strong></span>
         </h1>
         <p>
           find your people, start a conversation, or make a little
