@@ -220,7 +220,7 @@ function Home() {
         <section className="directory">
           <div className="section-title">
             <h2>
-              the bathrooms <span className="count">{rooms.length}</span>
+              the rooms <span className="count">{rooms.length}</span>
             </h2>
             <span className="live">
               <span className="dot" /> open to everyone
@@ -253,7 +253,7 @@ function Home() {
                   <span className={`room-icon tint-${i % 3}`}>#</span>
                   <div>
                     <h3>{room.name}</h3>
-                    <p>public room · come on in</p>
+                    <p>public bathroom · come on in</p>
                   </div>
                   <span className="arrow">↗</span>
                 </Link>
@@ -271,7 +271,7 @@ function Home() {
             </div>
           )}
           <p className="directory-note">
-            a shared space, a new perspective. pick a room and say hello.
+            a shared space, a new perspective. pick a bathroom and say hello.
           </p>
         </section>
         <aside>
@@ -350,7 +350,7 @@ function Home() {
                 if (!id || !/^[\w-]{1,128}$/.test(id)) throw new Error();
                 navigate(`/room/${id}`);
               } catch {
-                setError("paste a valid room link or id.");
+                setError("paste a valid bathroom link or id.");
               }
             }}
           >
@@ -359,7 +359,7 @@ function Home() {
             <div className="inline">
               <input
                 aria-label="room link or id"
-                placeholder="paste a room link or id"
+                placeholder="paste a bathroom link or id"
                 value={invite}
                 onChange={(e) => setInvite(e.target.value)}
                 required
@@ -453,7 +453,7 @@ function Conversation({
       );
       setCopied(idOnly ? "id copied" : "link copied");
     } catch {
-      setCopied("copy the room id below to share");
+      setCopied("copy the bathroom id below to share");
     }
   };
   return (
@@ -498,7 +498,7 @@ function Conversation({
             <div className="empty">
               <span className="empty-icon">✳</span>
               <h2>you’re in good company.</h2>
-              <p>start with a hello. see where it goes.</p>
+              <p>start with a shit. see where it goes.</p>
             </div>
           )}
           {messages.map((message) => (
@@ -569,7 +569,7 @@ function Conversation({
       )}
       <p className="directory-note">
         {room.private
-          ? "this room is unlisted. anyone with the invite can join and read its history."
+          ? "this bathroom is unlisted. anyone with the invite can join and read its history."
           : "keep it kind. there’s a person on the other side."}
       </p>
     </section>
